@@ -45,3 +45,8 @@ ENV/
 doctor_response.mp3
 patient_voice_test.mp3
 patient_voice_test_for_patient.mp3
+
+# Add to existing .gitignore
+.huggingface/
+.space
+space.json
