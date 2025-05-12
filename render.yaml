@@ -4,6 +4,7 @@ services:
     env: python
     buildCommand: |
       apt-get update && apt-get install -y ffmpeg
+      pip install --upgrade pip
       pip install --no-cache-dir -r requirements.txt
     startCommand: python gradio_app.py
     envVars:

@@ -2,8 +2,6 @@ gradio>=5.29.0
 python-dotenv
 groq
 requests
-SpeechRecognition
-PyAudio
 pydub
 gTTS
 elevenlabs
@@ -11,5 +9,4 @@ Pillow
 numpy
 torch
 transformers
-librosa
 ffmpeg-python
