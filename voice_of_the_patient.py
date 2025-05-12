@@ -8,6 +8,9 @@ import logging
 import speech_recognition as sr
 from pydub import AudioSegment
 from io import BytesIO
+import os
+import groq
+import requests  # Add this import
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -53,12 +56,11 @@ GROQ_API_KEY=os.environ.get("GROQ_API_KEY")
 stt_model="whisper-large-v3"
 
 def transcribe_with_groq(stt_model, audio_filepath, GROQ_API_KEY):
-    if not GROQ_API_KEY:
-        raise ValueError("GROQ_API_KEY is not set in environment variables")
-    
-    import requests
-    
     try:
+        if not GROQ_API_KEY:
+            logging.error("GROQ_API_KEY is missing")
+            raise ValueError("GROQ API key not found or invalid")
+        
         # Open and read the audio file
         with open(audio_filepath, "rb") as audio_file:
             files = {
@@ -86,12 +88,18 @@ def transcribe_with_groq(stt_model, audio_filepath, GROQ_API_KEY):
                 data=data
             )
             
-            if response.status_code != 200:
-                raise Exception(f"Error: {response.status_code} - {response.text}")
+            # Enhanced error handling
+            if response.status_code == 401:
+                logging.error("Authentication failed: Invalid API key")
+                raise ValueError("Invalid GROQ API key")
+            elif response.status_code != 200:
+                error_message = f"API request failed: {response.status_code} - {response.text}"
+                logging.error(error_message)
+                raise Exception(error_message)
             
-            return response.text  # Changed to directly return text response
+            return response.text
             
     except Exception as e:
-        logging.error(f"Transcription error: {e}")
+        logging.error(f"Transcription error: {str(e)}")
         raise
 

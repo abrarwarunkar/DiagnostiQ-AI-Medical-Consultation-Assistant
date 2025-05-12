@@ -67,9 +67,15 @@ def text_to_speech_with_gtts(input_text, output_filepath):
         print(f"Error in text to speech conversion: {e}")
         raise
 
-def text_to_speech_with_elevenlabs(input_text, output_filepath, auto_play=False):
+def text_to_speech_with_elevenlabs(input_text, output_filepath, auto_play=False, api_key=None):
     try:
-        client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
+        # Use provided API key or fall back to environment variable
+        elevenlabs_key = api_key or os.environ.get("ELEVENLABS_API_KEY")
+        
+        if not elevenlabs_key:
+            raise ValueError("ElevenLabs API key not found")
+            
+        client = ElevenLabs(api_key=elevenlabs_key)
         audio = client.generate(
             text=input_text,
             voice="Aria",
@@ -90,7 +96,7 @@ def text_to_speech_with_elevenlabs(input_text, output_filepath, auto_play=False)
         return output_filepath
         
     except Exception as e:
-        print(f"Error in text to speech conversion: {e}")
+        print(f"Error in text to speech conversion: {str(e)}")
         raise
 
 # Test the functions
