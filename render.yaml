@@ -3,7 +3,7 @@ services:
     name: diagnostiq-ai
     env: python
     buildCommand: |
-      apt-get update && apt-get install -y portaudio19-dev python3-pyaudio ffmpeg libasound2-dev
+      apt-get update && apt-get install -y ffmpeg
       pip install --no-cache-dir -r requirements.txt
     startCommand: python gradio_app.py
     envVars:
