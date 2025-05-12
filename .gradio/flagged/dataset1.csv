@@ -1,0 +1,2 @@
+Patient's Voice,Medical Image,Speech to Text,Doctor's Response,Doctor's Voice,timestamp
+.gradio\flagged\Patients Voice\009e790576a2bb3676a3\audio.wav,.gradio\flagged\Medical Image\87b0e41b999e5d1f8f3b\1072-Palmar_Erythema-1296x728-body.webp,"Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}",An error occurred,,2025-05-12 01:20:19.675549
