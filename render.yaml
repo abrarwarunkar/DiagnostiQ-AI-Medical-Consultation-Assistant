@@ -2,7 +2,9 @@ services:
   - type: web
     name: diagnostiq-ai
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      apt-get update && apt-get install -y portaudio19-dev python3-pyaudio ffmpeg
+      pip install -r requirements.txt
     startCommand: python gradio_app.py
     envVars:
       - key: GROQ_API_KEY
